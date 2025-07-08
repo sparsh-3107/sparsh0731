@@ -188,12 +188,19 @@
     let current = 0;
 
     function nextSlide() {
-      if (current < sections.length - 1) {
-        sections[current].classList.remove('active');
-        current++;
-        sections[current].classList.add('active');
-        flipSound.play();
-      }
+  if (current < sections.length - 1) {
+    sections[current].classList.remove('active');
+    current++;
+    sections[current].classList.add('active');
+    flipSound.play();
+
+    if (current === sections.length - 1) {
+      setTimeout(() => {
+        document.querySelector('.popup').classList.add('show');
+      }, 1500); // Delay to let the animation settle
+    }
+  }
+}
     }
 
     function createFloaty(type, symbol, target) {
