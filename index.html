@@ -4,19 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday maya ❤️🧿🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&family=Gloria+Hallelujah&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
+    html, body { width: 100%; height: 100%; overflow-x: hidden; scroll-behavior: smooth; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: url('https://www.transparenttextures.com/patterns/old-moon.png') repeat, radial-gradient(circle, #1a1a2e, #0f0f1b);
-      background-blend-mode: overlay;
-      overflow-x: hidden;
-      color: #ffffff;
+      background: linear-gradient(to right, #0f0f1b, #1a1a2e);
+      color: #fff;
     }
     h1 {
       font-size: 2.5em;
@@ -24,17 +19,18 @@
       font-family: 'Great Vibes', cursive;
       text-align: center;
       color: #ffb6c1;
-      animation: stroke 2s ease-in-out forwards;
+      animation: flicker 2.5s ease-in-out infinite alternate;
     }
-    @keyframes stroke {
-      0% { color: transparent; text-shadow: 0 0 5px #fff; }
-      100% { color: #ffb6c1; text-shadow: 0 0 20px #ff80ab; }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; text-shadow: 0 0 25px #ff80ab; }
+      100% { opacity: 1; }
     }
     .slider {
       display: flex;
       flex-wrap: nowrap;
-      transition: transform 1s ease-in-out;
       width: 600vw;
+      transition: transform 1.2s ease-in-out;
     }
     .section {
       min-width: 100vw;
@@ -44,84 +40,49 @@
       justify-content: center;
       flex-direction: column;
       padding: 2rem;
+      position: relative;
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(12px);
-      box-shadow: inset 0 0 80px #ff80ab44;
-      position: relative;
-      animation: fadeSlide 1.4s ease both;
+      box-shadow: inset 0 0 80px #ff80ab33;
+      animation: pageTurn 1s ease;
     }
-    @keyframes fadeSlide {
-      0% { transform: translateY(50px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
+    @keyframes pageTurn {
+      from { transform: rotateY(-90deg); opacity: 0; }
+      to { transform: rotateY(0deg); opacity: 1; }
     }
     .fade-text {
-      opacity: 0;
-      animation: fadeInUp 2.5s ease forwards;
-      max-width: 90%;
       font-size: 1.3em;
+      font-family: 'Gloria Hallelujah', cursive;
       text-align: center;
+      max-width: 90%;
       line-height: 1.8em;
       color: #ffe4e1;
-      font-family: 'Great Vibes', cursive;
+      animation: fadeInUp 2s ease forwards;
+      opacity: 0;
     }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .nav-btns {
+    .hearts, .sparkles {
       position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 1rem;
-      z-index: 10;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
-    .nav-btns button {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      background: #ff80ab;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff80ab88;
-      font-family: 'Great Vibes', cursive;
-      transition: transform 0.3s ease;
+    .heart, .sparkle {
+      position: absolute;
+      animation: float 6s linear infinite;
+      font-size: 1.5rem;
+      opacity: 0.7;
     }
-    .nav-btns button:hover {
-      transform: scale(1.05);
-    }
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.12);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      display: none;
-      color: white;
-      text-align: center;
-      max-width: 90vw;
-      z-index: 20;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 20px #ff80ab66;
-      font-family: 'Great Vibes', cursive;
-    }
-    .popup.show { display: block; animation: fadeInUp 1s ease; }
-    .popup button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #ff80ab;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 0.5rem;
-      font-family: 'Poppins', sans-serif;
+    .sparkle { color: #fff59d; }
+    @keyframes float {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
     .reveal-btn {
-      display: none;
       position: fixed;
       bottom: 2rem;
       right: 1rem;
@@ -135,56 +96,94 @@
       z-index: 25;
       box-shadow: 0 0 12px #ff80ab;
     }
-    .section:last-child .reveal-btn {
-      display: block;
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.15);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      color: white;
+      max-width: 90vw;
+      z-index: 999;
+      display: none;
+      font-family: 'Great Vibes', cursive;
+      box-shadow: 0 0 30px #ff80ab;
+      backdrop-filter: blur(15px);
     }
+    .popup.show { display: block; animation: fadeInUp 1s ease; }
+    .popup button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #ff80ab;
+      border: none;
+      color: white;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+    audio { display: none; }
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
-      }
-      .fade-text {
-        font-size: 1.1em;
-      }
-      .nav-btns button {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-      }
-      .popup {
-        padding: 1rem;
-      }
+      h1 { font-size: 2em; }
+      .fade-text { font-size: 1.05em; padding: 0 1rem; }
+      .popup { padding: 1.2rem; font-size: 1em; }
     }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/06/audio_f2119a6a1c.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="flipSound">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/30/audio_e2bd84659d.mp3" type="audio/mpeg">
+  </audio>
   <h1>Happy Birthday maya 🎉</h1>
-
-  <div class="slider">
-    <div class="section"><div class="fade-text">🎂 On this special day, the universe pauses to celebrate you. Your existence adds meaning to mine, like stars lighting up the darkest sky. I thank the heavens for you — for your light, love, and everything in between. 💫</div></div>
-
-    <div class="section"><div class="fade-text">🌌 You're not just beautiful on the outside, but breathtaking within. Your soul radiates kindness, your heart beats with empathy, and your smile heals hearts. Today, we don’t just celebrate your birth — we celebrate everything you are. 💖</div></div>
-
-    <div class="section"><div class="fade-text">🌠 My world began spinning in color the day you walked into it. You make every dull moment shine, every broken piece whole. You’re not a part of my life — you are my life. I love you beyond words. 🥺</div></div>
-
-    <div class="section"><div class="fade-text">🎶 In the symphony of life, you're my favorite melody. Your laughter is the rhythm I live for, your voice the chorus I replay in my mind. If I could, I’d write your name on every heartbeat. ❤️</div></div>
-
-    <div class="section"><div class="fade-text">🦋 You are grace wrapped in stardust, a gentle miracle walking this earth. You make love feel effortless, safe, and infinite. I fall for you every day — and today, I just want to hold you tighter. 🌷</div></div>
-
-    <div class="section"><div class="fade-text">With all my heart and soul, forever yours,<br><strong>sparsh</strong> 💌</div>
-    <button class="reveal-btn" onclick="document.querySelector('.popup').classList.add('show')">Reveal Love Letter</button></div>
+  <div class="slider" id="slider">
+    <div class="section"><div class="fade-text">🎂 On this special day, the universe pauses to celebrate you. Your existence adds meaning to mine, like stars lighting up the darkest sky. 💫</div></div>
+    <div class="section"><div class="fade-text">🌌 You're not just beautiful on the outside, but breathtaking within. Today, we celebrate all that you are. 💖</div></div>
+    <div class="section"><div class="fade-text">🌠 My world began spinning in color the day you walked into it. You’re not a part of my life — you are my life. 🥺</div></div>
+    <div class="section"><div class="fade-text">🎶 Your laughter is the rhythm I live for. If I could, I’d write your name on every heartbeat. ❤️</div></div>
+    <div class="section"><div class="fade-text">🦋 You are grace wrapped in stardust. I fall for you every single day. 🌷</div></div>
+    <div class="section">
+      <div class="fade-text">With all my heart and soul, forever yours,<br><strong>sparsh</strong> 💌</div>
+      <button class="reveal-btn" onclick="document.querySelector('.popup').classList.add('show')">Reveal Love Letter</button>
+    </div>
   </div>
-
   <div class="popup">
-    <p>Dear maya,
-      <br><br>
-      Words could never fully express what you mean to me. You're the reason my heart beats with purpose. Your love makes every moment worth living. I’m endlessly grateful for you, and I promise to cherish you—today, tomorrow, and forever. 💖
-      <br><br>
-      Love,<br>sparsh 💌
-    </p>
+    <p>Dear maya,<br><br>Your love is the light in my world. I am endlessly thankful for your presence. Every second with you is magic, and I promise to love you beyond limits. 💖<br><br>Love,<br>sparsh 💌</p>
     <button onclick="document.querySelector('.popup').classList.remove('show')">Close</button>
   </div>
-
+  <div class="hearts" id="hearts"></div>
+  <div class="sparkles" id="sparkles"></div>
   <script>
-    // Optional slider logic if needed in the future
+    const sections = document.querySelectorAll('.section');
+    let current = 0;
+    const flipSound = document.getElementById('flipSound');
+
+    function showNext() {
+      if (current < sections.length) {
+        sections[current].style.display = 'flex';
+        flipSound.play();
+        current++;
+        setTimeout(showNext, 6000);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', showNext);
+
+    function createFloaty(type, symbol, target) {
+      const el = document.createElement('div');
+      el.className = type;
+      el.textContent = symbol;
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = 1 + Math.random() * 2 + 'rem';
+      el.style.animationDuration = 3 + Math.random() * 3 + 's';
+      document.getElementById(target).appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }
+    setInterval(() => createFloaty('heart', '❤️', 'hearts'), 400);
+    setInterval(() => createFloaty('sparkle', '✨', 'sparkles'), 600);
   </script>
 </body>
 </html>
