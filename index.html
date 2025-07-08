@@ -12,6 +12,7 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #0f0f1b, #1a1a2e);
       color: #fff;
+      position: relative;
     }
     h1 {
       font-size: 2.5em;
@@ -45,6 +46,10 @@
       backdrop-filter: blur(12px);
       box-shadow: inset 0 0 80px #ff80ab33;
       animation: pageTurn 1s ease;
+      transition: all 0.8s ease;
+    }
+    .section:hover {
+      transform: scale(1.02);
     }
     @keyframes pageTurn {
       from { transform: rotateY(-90deg); opacity: 0; }
@@ -64,20 +69,21 @@
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .hearts, .sparkles {
+    .hearts, .sparkles, .stars {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1;
     }
-    .heart, .sparkle {
+    .heart, .sparkle, .star {
       position: absolute;
       animation: float 6s linear infinite;
       font-size: 1.5rem;
       opacity: 0.7;
     }
     .sparkle { color: #fff59d; }
+    .star { color: #aaddff; }
     @keyframes float {
       from { transform: translateY(100vh); opacity: 1; }
       to { transform: translateY(-10vh); opacity: 0; }
@@ -124,11 +130,27 @@
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
     }
+    .next-btn {
+      position: fixed;
+      bottom: 2rem;
+      left: 1rem;
+      background: #80deea;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 0.8rem;
+      color: #0f0f0f;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 25;
+      box-shadow: 0 0 12px #00bcd4;
+    }
     audio { display: none; }
     @media (max-width: 768px) {
       h1 { font-size: 2em; }
       .fade-text { font-size: 1.05em; padding: 0 1rem; }
       .popup { padding: 1.2rem; font-size: 1em; }
+      .section { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -155,12 +177,14 @@
     <p>Dear maya,<br><br>Your love is the light in my world. I am endlessly thankful for your presence. Every second with you is magic, and I promise to love you beyond limits. 💖<br><br>Love,<br>sparsh 💌</p>
     <button onclick="document.querySelector('.popup').classList.remove('show')">Close</button>
   </div>
+  <button class="next-btn" onclick="nextSlide()">Next ➡️</button>
   <div class="hearts" id="hearts"></div>
   <div class="sparkles" id="sparkles"></div>
+  <div class="stars" id="stars"></div>
   <script>
     const sections = document.querySelectorAll('.section');
-    let current = 0;
     const flipSound = document.getElementById('flipSound');
+    let current = 0;
 
     function showNext() {
       if (current < sections.length) {
@@ -170,6 +194,14 @@
         setTimeout(showNext, 6000);
       }
     }
+    function nextSlide() {
+      if (current < sections.length) {
+        sections[current].style.display = 'flex';
+        flipSound.play();
+        current++;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', showNext);
 
     function createFloaty(type, symbol, target) {
@@ -184,6 +216,7 @@
     }
     setInterval(() => createFloaty('heart', '❤️', 'hearts'), 400);
     setInterval(() => createFloaty('sparkle', '✨', 'sparkles'), 600);
+    setInterval(() => createFloaty('star', '🌟', 'stars'), 1000);
   </script>
 </body>
 </html>
