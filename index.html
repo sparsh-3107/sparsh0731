@@ -29,14 +29,12 @@
     }
     .slider {
       display: flex;
-      flex-wrap: nowrap;
-      width: 600vw;
-      transition: transform 1.2s ease-in-out;
+      flex-direction: column;
     }
     .section {
-      min-width: 100vw;
+      width: 100vw;
       height: 100vh;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       flex-direction: column;
@@ -48,8 +46,8 @@
       animation: pageTurn 1s ease;
       transition: all 0.8s ease;
     }
-    .section:hover {
-      transform: scale(1.02);
+    .section.active {
+      display: flex;
     }
     @keyframes pageTurn {
       from { transform: rotateY(-90deg); opacity: 0; }
@@ -64,6 +62,9 @@
       color: #ffe4e1;
       animation: fadeInUp 2s ease forwards;
       opacity: 0;
+    }
+    .section.active .fade-text {
+      opacity: 1;
     }
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(30px); }
@@ -163,7 +164,7 @@
   </audio>
   <h1>Happy Birthday maya 🎉</h1>
   <div class="slider" id="slider">
-    <div class="section"><div class="fade-text">🎂 On this special day, the universe pauses to celebrate you. Your existence adds meaning to mine, like stars lighting up the darkest sky. 💫</div></div>
+    <div class="section active"><div class="fade-text">🎂 On this special day, the universe pauses to celebrate you. Your existence adds meaning to mine, like stars lighting up the darkest sky. 💫</div></div>
     <div class="section"><div class="fade-text">🌌 You're not just beautiful on the outside, but breathtaking within. Today, we celebrate all that you are. 💖</div></div>
     <div class="section"><div class="fade-text">🌠 My world began spinning in color the day you walked into it. You’re not a part of my life — you are my life. 🥺</div></div>
     <div class="section"><div class="fade-text">🎶 Your laughter is the rhythm I live for. If I could, I’d write your name on every heartbeat. ❤️</div></div>
@@ -186,23 +187,14 @@
     const flipSound = document.getElementById('flipSound');
     let current = 0;
 
-    function showNext() {
-      if (current < sections.length) {
-        sections[current].style.display = 'flex';
-        flipSound.play();
-        current++;
-        setTimeout(showNext, 6000);
-      }
-    }
     function nextSlide() {
-      if (current < sections.length) {
-        sections[current].style.display = 'flex';
-        flipSound.play();
+      if (current < sections.length - 1) {
+        sections[current].classList.remove('active');
         current++;
+        sections[current].classList.add('active');
+        flipSound.play();
       }
     }
-
-    document.addEventListener('DOMContentLoaded', showNext);
 
     function createFloaty(type, symbol, target) {
       const el = document.createElement('div');
